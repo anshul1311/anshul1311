@@ -31,6 +31,8 @@ public class CheckOutPage {
     public WebElement btnNext;
     @FindBy(xpath = "//input[@checked='true']")
     public WebElement selectRadio;
+    @FindBy(xpath = "//tbody/tr")
+    public WebElement shippingMethodOption;
 
 
     public void fillAddressDetails(String street, String pinCode, String state, String country, String phone,String city) {
@@ -54,8 +56,12 @@ public class CheckOutPage {
         txtPhone.sendKeys(phone);
         waitUtils.waitForElementTobeClickable(txtCity);
         txtCity.sendKeys(city);
-        waitUtils.waitForElementTobeClickable(selectRadio);
-        selectRadio.click();
+        try {
+            waitUtils.waitForElementTobeClickable(selectRadio);
+            selectRadio.click();
+        }catch (Exception e){
+        shippingMethodOption.click();
+        }
         waitUtils.waitForElementTobeClickable(btnNext);
         btnNext.click();
 

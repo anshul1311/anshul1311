@@ -22,8 +22,10 @@ public class ProductDetailsPage {
     public WebElement btnAddCartIcon;
     @FindBy(id ="top-cart-btn-checkout")
     public WebElement btnProceed;
-    @FindBy(xpath = "(//div[@class='block-content'])[1]")
+    @FindBy(xpath = "//div[@class='block-content']")
     public WebElement cardValue;
+    @FindBy(xpath = "//a[contains(@data-bind,'product_name')]")
+    public WebElement addReview;
 
     public ProductDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -50,12 +52,8 @@ public class ProductDetailsPage {
         btnAddCartIcon.click();
         waitUtils.waitForElementTobeDisplayed(cardValue);
         waitUtils.waitForElementTobeClickable(btnProceed);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(btnProceed.isDisplayed()==true) {
+        waitUtils.waitForElementTobeClickable(addReview);
+        if(btnProceed.isEnabled()==true) {
             btnProceed.click();
         }
 

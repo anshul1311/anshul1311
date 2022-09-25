@@ -21,13 +21,8 @@ public class PaymentPage {
     }
 
     public void clickPlaceOrder(){
-        waitUtils.waitForElementTobeDisplayed(btnPlaceOrder);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         btnPlaceOrder.click();
+        waitUtils.waitForElementTobeInvisible(btnPlaceOrder);
     }
 
 }

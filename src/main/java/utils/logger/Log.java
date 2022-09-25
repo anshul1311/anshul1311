@@ -5,8 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 
 public class Log {
-    private static final Logger log = LogManager.getLogger(Log.class.getName());
-
+    private static final Logger log = LogManager.getLogger(Log.class);
 
     /**
      * method to display errors in log.
@@ -28,7 +27,7 @@ public class Log {
      * @param message message to be displayed
      */
     public static void info(String message) {
-
+        log.info("Hi");
         log.info(message);
     }
 }

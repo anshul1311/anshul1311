@@ -10,7 +10,7 @@ public class Location {
     public String city;
     public String state;
     public String country;
-    public int postcode;
+    public String postcode;
     public Coordinates coordinates;
     public Timezone timezone;
 }

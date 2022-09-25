@@ -1,0 +1,7 @@
+- testcasename: "randomusercreater"
+  testdata:
+    url: "https://randomuser.me/api/"
+- testcasename: "negativeflow"
+  testdata:
+    name: "test1"
+    value: 2
