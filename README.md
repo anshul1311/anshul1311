@@ -5,11 +5,13 @@ Steps To Run:
 1. Fork the project from github
 2. Open project as a maven project
 3. Goto Terminal and open the project directory
-4. Run below command
+4. Run below command if running in headless mode
 
-mvn clean install
+mvn clean install -DheadlessRun=Y
 
-This will run the project
+5. Run below command if running in non headless mode
+
+mvn clean install -DheadlessRun=N
 
 Points to Remember:
 
