@@ -5,12 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import utils.logger.Log;
 import utils.waitutils.WaitUtils;
 
 public class CheckOutPage {
 
-    WebDriver driver;
-    WaitUtils waitUtils;
     @FindBy(name = "company")
     public WebElement txtCompany;
     @FindBy(name = "street[0]")
@@ -19,7 +18,7 @@ public class CheckOutPage {
     public WebElement txtCity;
     @FindBy(name = "region_id")
     public WebElement selectState;
-    @FindBy(name="region")
+    @FindBy(name = "region")
     public WebElement txtState;
     @FindBy(name = "postcode")
     public WebElement txtPinCode;
@@ -33,23 +32,36 @@ public class CheckOutPage {
     public WebElement selectRadio;
     @FindBy(xpath = "//tbody/tr")
     public WebElement shippingMethodOption;
+    WebDriver driver;
+    WaitUtils waitUtils;
 
+    public CheckOutPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        waitUtils = new WaitUtils(driver);
+    }
 
-    public void fillAddressDetails(String street, String pinCode, String state, String country, String phone,String city) {
+    public void fillAddressDetails(String street, String pinCode, String state, String country, String phone, String city) {
+        Log.info("Inside fillAddressDetails Method");
         waitUtils.waitForElementTobeClickable(txtCompany);
+        Log.info("Enter Company");
         txtCompany.sendKeys("test");
         waitUtils.waitForElementTobeClickable(selectCountry);
         Select select = new Select(selectCountry);
+        Log.info("Select Country");
         select.selectByVisibleText(country);
         waitUtils.waitForElementTobeClickable(txtStreet);
+        Log.info("Enter Street "+street);
         txtStreet.sendKeys(street);
         waitUtils.waitForElementTobeClickable(txtPinCode);
+        Log.info("Enter Pincode "+pinCode);
         txtPinCode.sendKeys(pinCode);
-        if(selectState.getText().contains("Please select a region")) {
+        if (selectState.getText().contains("Please select a region")) {
             Select selectState1 = new Select(selectState);
             selectState1.selectByVisibleText(state);
-        }else{
+        } else {
             waitUtils.waitForElementTobeDisplayed(txtState);
+            Log.info("Enter State "+state);
             txtState.sendKeys(state);
         }
         waitUtils.waitForElementTobeClickable(txtPhone);
@@ -59,18 +71,12 @@ public class CheckOutPage {
         try {
             waitUtils.waitForElementTobeClickable(selectRadio);
             selectRadio.click();
-        }catch (Exception e){
-        shippingMethodOption.click();
+        } catch (Exception e) {
+            shippingMethodOption.click();
         }
         waitUtils.waitForElementTobeClickable(btnNext);
         btnNext.click();
 
-    }
-
-    public CheckOutPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        waitUtils = new WaitUtils(driver);
     }
 
 }

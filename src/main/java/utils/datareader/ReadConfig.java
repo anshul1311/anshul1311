@@ -1,7 +1,5 @@
 package utils.datareader;
 
-import utils.logger.Log;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

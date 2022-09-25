@@ -6,7 +6,7 @@ import utils.logger.Log;
 @CucumberOptions(
         features = {"src/test/resources/features"},
         glue = {"stepdefination"},
-        plugin = { "pretty",
+        plugin = {"pretty",
                 "html:./reports/cucumber-reports/cucumber-html/index.html",
                 "rerun:target/failedrerun.txt"},
         tags = ""
@@ -16,7 +16,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = true)
     public Object[][] scenarios() {
-        Log.info("Start Test");
+        Log.info("Starting Test");
         return super.scenarios();
     }
 }

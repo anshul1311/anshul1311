@@ -4,13 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.logger.Log;
 import utils.waitutils.WaitUtils;
 
 public class ProductDetailsPage {
-
-    WebDriver driver;
-    WaitUtils waitUtils;
 
     @FindBy(xpath = "//div[@option-tooltip-value='XS']")
     public WebElement btnSelectSize;
@@ -20,12 +17,14 @@ public class ProductDetailsPage {
     public WebElement btnAddToCart;
     @FindBy(xpath = "//span[@class='counter qty']")
     public WebElement btnAddCartIcon;
-    @FindBy(id ="top-cart-btn-checkout")
+    @FindBy(id = "top-cart-btn-checkout")
     public WebElement btnProceed;
     @FindBy(xpath = "//div[@class='block-content']")
     public WebElement cardValue;
     @FindBy(xpath = "//a[contains(@data-bind,'product_name')]")
     public WebElement addReview;
+    WebDriver driver;
+    WaitUtils waitUtils;
 
     public ProductDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -44,6 +43,7 @@ public class ProductDetailsPage {
     }
 
     public void addToCart() {
+        Log.info("Inside addToCart Method in "+this.getClass().getName());
         selectSize();
         selectColor();
         waitUtils.waitForElementTobeClickable(btnAddToCart);
@@ -53,7 +53,7 @@ public class ProductDetailsPage {
         waitUtils.waitForElementTobeDisplayed(cardValue);
         waitUtils.waitForElementTobeClickable(btnProceed);
         waitUtils.waitForElementTobeClickable(addReview);
-        if(btnProceed.isEnabled()==true) {
+        if (btnProceed.isEnabled() == true) {
             btnProceed.click();
         }
 

@@ -1,4 +1,5 @@
 Feature: Test register user
+
   Background: : Create Random User
     Given Random user api
     When This api is hit
@@ -17,9 +18,8 @@ Feature: Test register user
     And success screen should be displayed
 
   @Negative
-    Scenario: : User already exists
-      Given url for registration
-      And user clicks on register button
-      When user fills firstname as "Eva" and lastname as "Shelton" and email as "eva.shelton@example.com" in registration details
-      Then user already exists message is shown
-
+  Scenario: : User already exists
+    Given url for registration
+    And user clicks on register button
+    When user fills firstname as "Eva" and lastname as "Shelton" and email as "eva.shelton@example.com" in registration details
+    Then user already exists message is shown

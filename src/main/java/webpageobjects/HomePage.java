@@ -8,17 +8,15 @@ import utils.logger.Log;
 import utils.waitutils.WaitUtils;
 
 public class HomePage {
-    WebDriver driver;
-    WaitUtils waitUtils;
-
     @FindBy(id = "search")
     public WebElement txtSearch;
     @FindBy(xpath = "//button[@title='Search']")
     public WebElement btnSearch;
+    WebDriver driver;
+    WaitUtils waitUtils;
 
     public HomePage(WebDriver driver) {
         Log.info("Inside HomePage Constructor");
-
         this.driver = driver;
         PageFactory.initElements(driver, this);
         waitUtils = new WaitUtils(driver);

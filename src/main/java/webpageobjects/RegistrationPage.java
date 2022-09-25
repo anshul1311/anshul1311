@@ -4,14 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import utils.logger.Log;
 import utils.waitutils.WaitUtils;
 
 public class RegistrationPage {
 
-    WebDriver driver;
-    WaitUtils waitUtils;
     @FindBy(id = "firstname")
     public WebElement txtFirstName;
     @FindBy(id = "lastname")
@@ -26,6 +23,8 @@ public class RegistrationPage {
     public WebElement btnCreate;
     @FindBy(xpath = "//div[@data-ui-id='message-error']/div")
     public WebElement messageError;
+    WebDriver driver;
+    WaitUtils waitUtils;
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -34,11 +33,6 @@ public class RegistrationPage {
     }
 
     public void enterRegistrationDetails(String firstName, String lastName, String email, String password) {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         txtFirstName.sendKeys(firstName);
         txtLastName.sendKeys(lastName);
         txtemail.sendKeys(email);
@@ -59,6 +53,7 @@ public class RegistrationPage {
         }
         return false;
     }
+
     public boolean isRegistrationPageDisplayed() {
         return driver.getTitle().contains("Create New Customer Account");
     }

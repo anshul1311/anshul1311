@@ -10,9 +10,9 @@ public class Log {
     /**
      * method to display errors in log.
      *
-     * @param className name of class in which error occurred.
+     * @param className  name of class in which error occurred.
      * @param methodName name of method in which error occurred.
-     * @param exception stack trace of exception
+     * @param exception  stack trace of exception
      */
     public static void logError(String className, String methodName, String exception) {
         log.info("ClassName :" + className);
@@ -27,7 +27,6 @@ public class Log {
      * @param message message to be displayed
      */
     public static void info(String message) {
-        log.info("Hi");
         log.info(message);
     }
 }

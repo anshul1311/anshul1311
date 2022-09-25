@@ -6,8 +6,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.apimanager.CreateUserApiManager;
@@ -20,6 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author anshul ahuja
+ */
 @Test(retryAnalyzer = utils.listeners.RetryListener.class)
 public class PlaceOrder {
 
@@ -33,10 +34,9 @@ public class PlaceOrder {
     PaymentPage paymentPage;
     SuccessPage successPage;
     CommonElements commonElements;
-    String url;
     String path = "config.properties";
 
-    @Before(value = "@happily",order = 1)
+    @Before(value = "@happily", order = 1)
     public void setup() throws IOException {
         Log.info("Inside Setup");
         loginPage = new LoginPage(ReadConfig.getInstance(path).getProperty("web.url"));
@@ -49,7 +49,6 @@ public class PlaceOrder {
         successPage = new SuccessPage(loginPage.getDriver());
         commonElements = new CommonElements(loginPage.getDriver());
     }
-
 
 
     @Before("  @Negative")
@@ -79,7 +78,7 @@ public class PlaceOrder {
 
     @Given("url for registration")
     public void url_for_registration() {
-       Assert.assertTrue(loginPage.isLoginPageDisplayed());
+        Assert.assertTrue(loginPage.isLoginPageDisplayed());
     }
 
 
@@ -100,7 +99,7 @@ public class PlaceOrder {
 
     @When("user clicks on place order")
     public void user_clicks_on_place_order() {
-        commonElements.waitForLoaderToDisapper();
+        commonElements.waitForLoaderToDisappear();
         paymentPage.clickPlaceOrder();
     }
 
@@ -113,6 +112,7 @@ public class PlaceOrder {
     public void user_clicks_on_register_button() {
         loginPage.clickCreateAccount();
     }
+
     @Given("user fills all registration details")
     public void user_fills_all_registration_details() {
         String firstName = createUserApiManager.getRoot().getResults().get(0).getName().getFirst();
@@ -120,9 +120,10 @@ public class PlaceOrder {
         String email = createUserApiManager.getRoot().getResults().get(0).getEmail();
         registrationPage.enterRegistrationDetails(firstName, lastName, email, "Unlimint@123");
     }
+
     @When("user fills firstname as {string} and lastname as {string} and email as {string} in registration details")
-    public void user_fills_firstname_as_eva_and_lastname_as_shelton_and_email_as_eva_shelton_example_com_in_registration_details(String firstname,String lastname,String email) {
-        if(firstname.equals("firstname")) {
+    public void user_fills_firstname_as_eva_and_lastname_as_shelton_and_email_as_eva_shelton_example_com_in_registration_details(String firstname, String lastname, String email) {
+        if (firstname.equals("firstname")) {
             firstname = createUserApiManager.getRoot().getResults().get(0).getName().getFirst();
             lastname = createUserApiManager.getRoot().getResults().get(0).getName().getLast();
             email = createUserApiManager.getRoot().getResults().get(0).getEmail();
@@ -135,13 +136,16 @@ public class PlaceOrder {
     public void searching_the_product() {
         homePage.searchClothes("");
     }
+
     @When("add the product to cart")
     public void add_the_product_to_cart() {
         productListingPage.clickAddToCart();
         productDetailsPage.addToCart();
     }
+
     @When("filling all the address details")
     public void filling_all_the_address_details() {
+        commonElements.waitForLoaderToDisappear();
         String street = String.valueOf(createUserApiManager.getRoot().getResults().get(0).getLocation().getStreet().getNumber());
         street = street + createUserApiManager.getRoot().getResults().get(0).getLocation().getStreet().getName();
         String pinCode = createUserApiManager.getRoot().getResults().get(0).getLocation().getPostcode();
@@ -151,23 +155,26 @@ public class PlaceOrder {
         String city = createUserApiManager.getRoot().getResults().get(0).getLocation().getCity();
         checkOutPage.fillAddressDetails(street, pinCode, state, country, phone, city);
     }
+
     @Then("user should be able to place the order")
     public void user_should_be_able_to_place_the_order() {
-        commonElements.waitForLoaderToDisapper();
+        commonElements.waitForLoaderToDisappear();
         paymentPage.clickPlaceOrder();
     }
 
     @Then("success screen should be displayed")
     public void success_screen_should_be_displayed() {
         Assert.assertEquals(successPage.validateSuccessMessage(), "Thank you for your purchase!");
+        Assert.assertTrue(successPage.isOrderNumberDisplayed());
     }
+
     @Then("user already exists message is shown")
     public void user_already_exists_message_is_shown() {
         Assert.assertTrue(registrationPage.isUserExist());
     }
 
-@After
-public void tearDown(){
-    loginPage.getDriver().quit();
+    @After
+    public void tearDown() {
+        loginPage.getDriver().quit();
     }
 }

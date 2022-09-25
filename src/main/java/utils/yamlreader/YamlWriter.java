@@ -1,7 +1,5 @@
 package utils.yamlreader;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -33,11 +31,9 @@ public class YamlWriter {
         for (int i = 0; i < obj.size(); i++) {
             if (obj.get(i).containsValue(testcaseName)) {
                 obj.get(i);
-                //ObjectMapper objectMapper = new YAMLMapper();
                 Map<String, Object> testcase = obj.get(i);
                 Map<String, Object> testdata = (Map<String, Object>) testcase.get("testdata");
                 testdata.putAll(valueToUpdate);
-                //objectMapper.writeValue(new File(filename), obj);
             }
         }
     }

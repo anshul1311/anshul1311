@@ -10,19 +10,21 @@ import utils.CommonApi;
 import utils.logger.Log;
 
 public class CreateUserApiManager extends CommonApi implements ApiManager {
-@Setter
-@Getter
-Root root;
-Response response;
-String url;
-public CreateUserApiManager(String url){
-    this.url=url;
-}
+    @Setter
+    @Getter
+    Root root;
+    Response response;
+    String url;
+
+    public CreateUserApiManager(String url) {
+        this.url = url;
+    }
+
     @Override
     public void execute() throws JsonProcessingException {
         Log.info("Inside Random Api Execute Method");
-         response = getApiResponse(url, null, null, null, 200);
-        Log.info("Random Api Executed with response"+ response);
+        response = getApiResponse(url, null, null, null, 200);
+        Log.info("Random Api Executed with response" + response.asString());
 
 
     }
@@ -31,6 +33,5 @@ public CreateUserApiManager(String url){
         Log.info("Inside SetApiData Method");
         ObjectMapper mapper = new ObjectMapper();
         root = mapper.readValue(response.asString(), Root.class);
-        System.out.println(response.asString());
     }
 }

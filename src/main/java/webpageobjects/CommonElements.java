@@ -9,20 +9,19 @@ import utils.waitutils.WaitUtils;
 
 public class CommonElements {
 
-    WebDriver driver;
-    WaitUtils waitUtils;
-
     @FindBy(xpath = "//img[contains(@src,'loader')]")
     public WebElement imgLoader;
+    WebDriver driver;
+    WaitUtils waitUtils;
 
     public CommonElements(WebDriver driver) {
         Log.info("Inside Common Elements Constructor");
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        waitUtils=new WaitUtils(driver);
+        waitUtils = new WaitUtils(driver);
     }
 
-    public void waitForLoaderToDisapper(){
+    public void waitForLoaderToDisappear() {
         waitUtils.waitForElementTobeInvisible(imgLoader);
     }
 
